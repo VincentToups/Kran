@@ -197,7 +197,7 @@
     this.remove(compId)
   }
 
-  Entity.prototype.delete = function() {
+  Entity.prototype["delete"] = function() {
     this.belongsTo.forEach(function (collBelonging, elm) {
       collBelonging.entry.remove()
     })

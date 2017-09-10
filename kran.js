@@ -281,10 +281,12 @@
         this.belongsTo.forEach(function (collBelonging, elm) {
             var coll = collBelonging.collRef;
             if(coll.removal) coll.removal.forEach(function(func){
-                    coll.callWithComps(that, func);
-                });
+                coll.callWithComps(that, func);
+            });
+        });
+        this.belongsTo.forEach(function (collBelonging, elm) {
             collBelonging.entry.remove();
-        })
+        });
     }
 
     Kran.prototype.entity = function () {

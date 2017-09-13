@@ -98,6 +98,35 @@
         return this.entityCollections[key] 
     }
 
+    Kran.prototype.getSystemEntities = function(idOrName){
+        if(typeof idOrName === "number"){
+            return this.systems[idOrName].collection;
+        } else {
+            return this.systems[this.systemNames[idOrName]].collection;
+        }
+    };
+
+    Kran.prototype.forEachSystemEntity = function(f,idOrName){
+        if(typeof idOrName === "number"){
+            return this.systems[idOrName].collection.forEachWithComps(f,this);
+        } else {
+            return this.systems[this.systemNames[idOrName]].collection.forEachWithComps(f,this);
+        }
+    };
+
+    Kran.prototype.mapSystemEntities = function(f,idOrName){
+        var out = [];
+        var that = this;
+        this.forEachSystemEntity(function(){
+            out.push(f.apply(that,Array.prototype.slice.call(arguments, 0, arguments.length)));
+        },idOrName);
+        return out;
+    };
+
+    Kran.prototype["delete"] = function(e){
+        e.delete();
+    };
+
     // ***********************************************
     // System
     //
